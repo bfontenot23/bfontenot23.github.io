@@ -129,11 +129,11 @@ main {
   font-weight: bold;
 }
 .content ul {
-  margin-left: 1rem;
+  margin-left: 2rem;
   margin-bottom: 1.75rem;
 }
 .content ol {
-  margin-left: 1.75rem;
+  margin-left: 2.75rem;
   margin-bottom: 1.75rem;
 }
 .content ol * ol,
