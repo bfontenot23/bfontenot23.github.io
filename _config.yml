@@ -1,12 +1,12 @@
-title: Jekyll Serial Programmer
+title: Portfolio - Beau Fontenot
 markdown: kramdown
 url: ""
-baseurl: "/jekyll-theme-serial-programmer"
+baseurl: ""
 
 # for atom feed
 author:
-  name: Sharad Raj Singh Maurya
-  email: dev_sharad@outlook.com
+  name: Beau Fontenot
+  email: fontenotbeau14@gmail.com
 
 plugins:
   - jemoji
