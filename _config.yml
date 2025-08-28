@@ -6,7 +6,7 @@ baseurl: ""
 # for atom feed
 author:
   name: Beau Fontenot
-  email: fontenotbeau14@gmail.com
+  email: beau_fontenot@icloud.com
 
 plugins:
   - jemoji
