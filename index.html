@@ -187,9 +187,13 @@
       init() {
         this.particles = [];
         for (let i = 0; i < this.particleCount; i++) {
+          const x = Math.random() * this.canvas.width;
+          const y = Math.random() * this.canvas.height;
           this.particles.push({
-            x: Math.random() * this.canvas.width,
-            y: Math.random() * this.canvas.height,
+            x: x,
+            y: y,
+            originX: x,
+            originY: y,
             vx: (Math.random() - 0.5) * 0.5,
             vy: (Math.random() - 0.5) * 0.5,
             radius: Math.random() * 3 + 1,
@@ -199,10 +203,15 @@
       }
       
       update() {
+        const scrollY = window.pageYOffset;
+        
         this.particles.forEach(particle => {
+          // Adjust particle position based on scroll
+          const scrolledOriginY = particle.originY - scrollY * 0.5;
+          
           // Mouse interaction
           const dx = this.mouse.x - particle.x;
-          const dy = this.mouse.y - particle.y;
+          const dy = (this.mouse.y + scrollY) - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
           if (distance < this.mouse.radius) {
@@ -212,29 +221,35 @@
             particle.vy -= Math.sin(angle) * force * 0.5;
           }
           
+          // Return to origin force
+          const dxOrigin = particle.originX - particle.x;
+          const dyOrigin = scrolledOriginY - particle.y;
+          particle.vx += dxOrigin * 0.001;
+          particle.vy += dyOrigin * 0.001;
+          
           // Apply velocity
           particle.x += particle.vx;
           particle.y += particle.vy;
           
           // Friction
-          particle.vx *= 0.99;
-          particle.vy *= 0.99;
+          particle.vx *= 0.95;
+          particle.vy *= 0.95;
           
           // Boundaries with wrap-around
-          if (particle.x < 0) particle.x = this.canvas.width;
-          if (particle.x > this.canvas.width) particle.x = 0;
-          if (particle.y < 0) particle.y = this.canvas.height;
-          if (particle.y > this.canvas.height) particle.y = 0;
+          if (particle.x < -50) particle.x = this.canvas.width + 50;
+          if (particle.x > this.canvas.width + 50) particle.x = -50;
+          if (particle.y < -50) particle.y = this.canvas.height + 50;
+          if (particle.y > this.canvas.height + 50) particle.y = -50;
           
           // Gentle drift
-          particle.vx += (Math.random() - 0.5) * 0.05;
-          particle.vy += (Math.random() - 0.5) * 0.05;
+          particle.vx += (Math.random() - 0.5) * 0.02;
+          particle.vy += (Math.random() - 0.5) * 0.02;
         });
       }
       
       draw() {
-        // Clear with fade effect
-        this.ctx.fillStyle = 'rgba(15, 15, 26, 0.1)';
+        // Clear completely (no trails)
+        this.ctx.fillStyle = '#0f0f1a';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         // Draw connections
