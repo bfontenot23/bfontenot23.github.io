@@ -285,6 +285,12 @@
     z-index: 10;
   }
 
+  @media (max-width: 768px) {
+    .mouse-follower {
+      @apply hidden;
+    }
+  }
+
   /* ==================== TILT EFFECT ==================== */
   .tilt-card {
     transform-style: preserve-3d;

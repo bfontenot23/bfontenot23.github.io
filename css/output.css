@@ -970,6 +970,12 @@ body {
   z-index: 10;
 }
 
+@media (max-width: 768px) {
+  .mouse-follower {
+    display: none;
+  }
+}
+
 /* ==================== TILT EFFECT ==================== */
 
 .tilt-card {

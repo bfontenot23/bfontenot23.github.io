@@ -238,6 +238,10 @@
           }
         }
         
+        // Add bounce effect based on scroll velocity
+        const scrollVelocity = Math.abs(scrollDelta);
+        const bounceForce = Math.min(scrollVelocity * 0.02, 2);
+        
         this.lastScrollY = scrollY;
         
         // Update particles and remove off-screen ones
@@ -269,6 +273,12 @@
           // Friction
           particle.vx *= 0.95;
           particle.vy *= 0.95;
+          
+          // Add scroll bounce effect
+          if (scrollDelta !== 0) {
+            particle.vy += (Math.random() - 0.5) * bounceForce;
+            particle.vx += (Math.random() - 0.5) * bounceForce * 0.5;
+          }
           
           // Gentle drift (slightly more on mobile for ambient movement)
           const driftAmount = this.isMobile ? 0.03 : 0.02;
