@@ -90,7 +90,7 @@
         this.isMobile = window.innerWidth <= 768;
         this.particleCount = this.isMobile ? 20 : 80;
         this.mouse = { x: 0, y: 0, radius: 150 };
-        this.lastScrollY = 0;
+        this.lastScrollY = window.pageYOffset;
         this.maxParticles = this.isMobile ? 50 : 200;
         
         this.resize();
@@ -125,6 +125,7 @@
       
       createParticle(x, y) {
         const colorIndex = Math.floor(Math.random() * 3);
+        const scrollY = window.pageYOffset;
         this.particles.push({
           x: x,
           y: y,
