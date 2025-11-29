@@ -4,6 +4,9 @@
 @tailwind utilities;
 
 /* ==================== CSS VARIABLES ==================== */
+/* These CSS variables are used for gradients and effects that require 
+   CSS custom properties (background-clip, box-shadow, etc.) which cannot 
+   be achieved with Tailwind utilities alone. Keep in sync with tailwind.config.js */
 :root {
   --bg-dark: #0f0f1a;
   --bg-card: #1a1a2e;
