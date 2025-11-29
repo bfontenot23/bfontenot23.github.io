@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Interactive Showcase</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark': '#0f0f1a',
+            'card': '#1a1a2e',
+            'accent-blue': '#3b82f6',
+            'accent-purple': '#a855f7',
+            'accent-green': '#4ecca3',
+            'text-primary': '#ffffff',
+            'text-secondary': '#a0a0b2',
+          },
+          fontFamily: {
+            'space': ['"Space Grotesk"', 'sans-serif'],
+            'outfit': ['Outfit', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+  <div class="mouse-follower"></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">Portfolio</div>
+    <ul class="nav-links">
+      <li><a href="#home" data-hover>Home</a></li>
+      <li><a href="#portfolio" data-hover>Work</a></li>
+      <li><a href="#about" data-hover>About</a></li>
+      <li><a href="#contact" data-hover>Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Creative Developer</h1>
+      <p class="subtitle">Building digital experiences that inspire</p>
+      <span class="tagline">Let's create something amazing</span>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h2 class="section-title">My <span>Work</span></h2>
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Portfolio items loaded dynamically -->
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">About <span>Me</span></h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Hello! I'm a <strong>passionate developer</strong> who loves creating 
+          beautiful and functional digital experiences. With a focus on clean code 
+          and creative solutions, I bring ideas to life through technology.
+        </p>
+        <br>
+        <p>
+          I specialize in building <strong>interactive web applications</strong> 
+          that not only look great but also provide excellent user experiences. 
+          Every project is an opportunity to learn and grow.
+        </p>
+      </div>
+      <div class="skills-container">
+        <div class="skill">JavaScript</div>
+        <div class="skill">HTML/CSS</div>
+        <div class="skill">React</div>
+        <div class="skill">Node.js</div>
+        <div class="skill">Python</div>
+        <div class="skill">Git</div>
+        <div class="skill">UI/UX Design</div>
+        <div class="skill">Problem Solving</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Get In <span>Touch</span></h2>
+    <div class="contact-content">
+      <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+      <div class="contact-links">
+        <a href="mailto:your.email@example.com" class="contact-link" data-hover>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Email Me
+        </a>
+        <a href="https://github.com/bfontenot23" target="_blank" rel="noopener noreferrer" class="contact-link" data-hover>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Portfolio. Built with passion and creativity.</p>
+  </footer>
+
+  <script>
+    // ==================== CUSTOM CURSOR ====================
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    const mouseFollower = document.querySelector('.mouse-follower');
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let dotX = 0, dotY = 0;
+    let followerX = 0, followerY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Smooth cursor animation
+    function animateCursor() {
+      // Cursor ring - smooth follow
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      cursorX += dx * 0.15;
+      cursorY += dy * 0.15;
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+
+      // Cursor dot - fast follow
+      const ddx = mouseX - dotX;
+      const ddy = mouseY - dotY;
+      dotX += ddx * 0.5;
+      dotY += ddy * 0.5;
+      cursorDot.style.left = dotX + 'px';
+      cursorDot.style.top = dotY + 'px';
+
+      // Mouse follower - very smooth
+      const fdx = mouseX - followerX;
+      const fdy = mouseY - followerY;
+      followerX += fdx * 0.05;
+      followerY += fdy * 0.05;
+      mouseFollower.style.left = followerX + 'px';
+      mouseFollower.style.top = followerY + 'px';
+
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover effect for cursor
+    const hoverElements = document.querySelectorAll('a, button, [data-hover]');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // ==================== 3D TILT EFFECT ====================
+    function initTiltEffect() {
+      const cards = document.querySelectorAll('.portfolio-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+      });
+    }
+
+    // ==================== PARALLAX EFFECTS ON ORBS ====================
+    const orbs = document.querySelectorAll('.floating-orb');
+    
+    // Track mouse position and scroll for combined transform
+    let orbMouseX = 0, orbMouseY = 0;
+    let orbScrollY = 0;
+    let orbAnimationFrame = null;
+    
+    function updateOrbTransforms() {
+      orbs.forEach((orb, index) => {
+        const mouseSpeed = (index + 1) * 20;
+        const scrollSpeed = (index + 1) * 0.1;
+        const mouseOffsetX = orbMouseX * mouseSpeed;
+        const mouseOffsetY = orbMouseY * mouseSpeed;
+        const scrollOffset = orbScrollY * scrollSpeed;
+        orb.style.transform = `translate(${mouseOffsetX}px, ${mouseOffsetY + scrollOffset}px)`;
+      });
+      orbAnimationFrame = null;
+    }
+    
+    function requestOrbUpdate() {
+      if (!orbAnimationFrame) {
+        orbAnimationFrame = requestAnimationFrame(updateOrbTransforms);
+      }
+    }
+    
+    window.addEventListener('scroll', () => {
+      orbScrollY = window.pageYOffset;
+      requestOrbUpdate();
+    }, { passive: true });
+
+    document.addEventListener('mousemove', (e) => {
+      orbMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      orbMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      requestOrbUpdate();
+    }, { passive: true });
+
+    // ==================== LOAD PORTFOLIO ITEMS FROM POSTS FOLDER ====================
+    async function loadPortfolio() {
+      try {
+        // Load the index file that lists all project files
+        const indexResponse = await fetch('posts/index.json');
+        const projectFiles = await indexResponse.json();
+        
+        // Load each project file
+        const projects = await Promise.all(
+          projectFiles.map(async (filename) => {
+            const response = await fetch(`posts/${filename}`);
+            return response.json();
+          })
+        );
+        
+        // Sort by date (newest first)
+        projects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        const grid = document.getElementById('portfolioGrid');
+        
+        projects.forEach((project, index) => {
+          const card = document.createElement('div');
+          card.className = 'portfolio-card tilt-card';
+          card.style.animationDelay = `${index * 0.1}s`;
+          
+          card.innerHTML = `
+            <img src="${project.image}" alt="${project.title}" class="card-image">
+            <div class="card-content">
+              <h3>${project.title}</h3>
+              <p>${project.description}</p>
+              <div class="card-tags">
+                ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+              <div class="card-links">
+                ${project.link !== '#' ? `
+                <a href="${project.link}" target="_blank" rel="noopener noreferrer" data-hover>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Live Demo
+                </a>` : ''}
+                ${project.github !== '#' ? `
+                <a href="${project.github}" target="_blank" rel="noopener noreferrer" data-hover>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub
+                </a>` : ''}
+              </div>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+        
+        // Initialize tilt effect after cards are loaded
+        initTiltEffect();
+        
+        // Re-add hover listeners for new elements
+        const newHoverElements = document.querySelectorAll('.portfolio-card a');
+        newHoverElements.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+        
+      } catch (error) {
+        console.error('Error loading portfolio:', error);
+        // Fallback content if posts fail to load
+        const grid = document.getElementById('portfolioGrid');
+        grid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Portfolio projects loading...</p>';
+      }
+    }
+
+    // ==================== SMOOTH SCROLL ====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ====================
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPortfolio();
+      
+      // Observe sections for scroll animations
+      document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+      });
+      
+      // Make hero visible immediately
+      document.querySelector('.hero').style.opacity = '1';
+      document.querySelector('.hero').style.transform = 'translateY(0)';
+    });
+  </script>
+</body>
+</html>
