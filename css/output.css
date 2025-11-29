@@ -745,6 +745,15 @@ body {
   width: 100%;
 }
 
+.nav-links a.active {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
 /* ==================== SECTIONS ==================== */
 
 .section {

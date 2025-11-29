@@ -118,6 +118,14 @@
     @apply w-full;
   }
 
+  .nav-links a.active {
+    @apply text-white;
+  }
+
+  .nav-links a.active::after {
+    @apply w-full;
+  }
+
   /* ==================== SECTIONS ==================== */
   .section {
     @apply py-24 px-8 max-w-7xl mx-auto;

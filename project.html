@@ -221,7 +221,7 @@
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < 100) {
-              const opacity = (1 - distance / 100) * 0.3;
+              const opacity = (1 - distance / 100) * (this.isMobile ? 0.15 : 0.3);
               this.ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
               this.ctx.beginPath();
               this.ctx.moveTo(this.particles[i].x, this.particles[i].y - scrollY);
@@ -238,7 +238,7 @@
             this.ctx.shadowBlur = 20;
             this.ctx.shadowColor = particle.color;
             this.ctx.fillStyle = particle.color;
-            this.ctx.globalAlpha = 0.6;
+            this.ctx.globalAlpha = this.isMobile ? 0.3 : 0.6;
             
             this.ctx.beginPath();
             this.ctx.arc(particle.x, screenY, particle.radius, 0, Math.PI * 2);
