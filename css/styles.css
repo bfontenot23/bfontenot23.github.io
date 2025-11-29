@@ -72,7 +72,8 @@
   }
 
   .scroll-indicator {
-    @apply absolute bottom-8 left-1/2 flex flex-col items-center gap-2;
+    @apply absolute left-1/2 flex flex-col items-center gap-2;
+    bottom: 8rem;
     transform: translateX(-50%);
     color: var(--text-secondary);
     animation: bounce 2s ease-in-out infinite;
@@ -80,6 +81,12 @@
 
   .scroll-indicator svg {
     @apply w-6 h-6;
+  }
+  
+  @media (max-width: 768px) {
+    .scroll-indicator {
+      bottom: 12rem;
+    }
   }
 
   /* ==================== NAVIGATION ==================== */
