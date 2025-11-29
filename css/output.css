@@ -783,12 +783,15 @@ body {
 
 .portfolio-card {
   position: relative;
+  display: block;
   overflow: hidden;
   border-radius: 1rem;
+  text-decoration-line: none;
   background: var(--bg-card);
   transform-style: preserve-3d;
   transition: transform 0.5s, box-shadow 0.5s;
   max-width: 350px;
+  cursor: pointer;
 }
 
 .portfolio-card:hover {
@@ -860,7 +863,8 @@ body {
   gap: 1rem;
 }
 
-.card-links a {
+.card-links a,
+  .card-link-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -871,7 +875,8 @@ body {
   color: var(--text-secondary);
 }
 
-.card-links a:hover {
+.card-links a:hover,
+  .card-link-item:hover {
   color: var(--accent-green);
 }
 
@@ -1151,6 +1156,267 @@ body {
   perspective: 1000px;
 }
 
+/* ==================== PROJECT DETAIL PAGE ==================== */
+
+.project-detail-section {
+  min-height: 100vh;
+  padding-top: 8rem;
+}
+
+.project-detail-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56rem;
+}
+
+.back-button {
+  margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  color: var(--text-secondary);
+}
+
+.back-button:hover {
+  color: var(--accent-blue);
+  transform: translateX(-5px);
+}
+
+.back-button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.project-content > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.loading-message {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.error-message {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+
+.error-message h2 {
+  margin-bottom: 1rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.error-message p {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.back-link {
+  display: inline-block;
+  border-radius: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  background: var(--bg-card);
+  color: var(--accent-blue);
+}
+
+.back-link:hover {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.project-header {
+  margin-bottom: 2rem;
+}
+
+.project-title {
+  margin-bottom: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.project-date {
+  border-radius: 9999px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.project-image-container {
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.project-detail-image {
+  height: auto;
+  width: 100%;
+}
+
+.project-body > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.project-section > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.project-section h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  background: var(--gradient-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-description,
+  .project-long-description {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  line-height: 1.625;
+  color: var(--text-secondary);
+}
+
+.project-long-description p {
+  margin-bottom: 1rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.project-tags .tag {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.project-features > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.project-features {
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.project-features li {
+  position: relative;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.project-features li::before {
+  content: '▹';
+  position: absolute;
+  left: -1.25rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: var(--accent-green);
+}
+
+.project-links-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.project-action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  background: var(--bg-card);
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-1);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.project-action-button.secondary {
+  background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-2);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.project-action-button:hover {
+  --tw-translate-y: -0.25rem;
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+}
+
+.project-action-button.secondary:hover {
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3);
+}
+
+.project-action-button svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -1177,6 +1443,10 @@ body {
 
 .-bottom-1 {
   bottom: -0.25rem;
+}
+
+.-left-5 {
+  left: -1.25rem;
 }
 
 .bottom-8 {
@@ -1224,6 +1494,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -1234,6 +1508,10 @@ body {
 
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .table {
@@ -1407,6 +1685,12 @@ body {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1455,6 +1739,11 @@ body {
   padding-right: 0.75rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1468,6 +1757,11 @@ body {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .py-24 {
@@ -1490,6 +1784,10 @@ body {
   padding-bottom: 1.5rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1505,6 +1803,11 @@ body {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-lg {

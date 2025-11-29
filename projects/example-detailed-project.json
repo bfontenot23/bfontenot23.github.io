@@ -1,0 +1,18 @@
+{
+  "id": 2,
+  "title": "Example Project with Details",
+  "description": "A brief description of your project that appears on the main portfolio page.",
+  "longDescription": "This is a more detailed description that appears on the project detail page. You can write multiple paragraphs here to thoroughly explain your project, the challenges you faced, and how you solved them. This field is optional but recommended for showcasing your work.",
+  "tags": ["React", "Node.js", "MongoDB", "Express"],
+  "image": "https://via.placeholder.com/800x500/1a1a2e/4ecca3?text=Detailed+Project",
+  "link": "#",
+  "github": "#",
+  "date": "2024-02-20",
+  "features": [
+    "User authentication and authorization with JWT",
+    "Real-time updates using WebSockets",
+    "Responsive design for mobile and desktop",
+    "RESTful API with comprehensive documentation",
+    "Automated testing with Jest and React Testing Library"
+  ]
+}

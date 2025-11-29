@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Details | Beau Fontenot</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Compiled Tailwind CSS with Custom Styles -->
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <!-- Mouse Follower Trail -->
+  <div class="mouse-follower"></div>
+
+  <!-- Fluid Simulator Background -->
+  <canvas id="fluid-canvas" class="fluid-background"></canvas>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="index.html#home" data-hover>Home</a></li>
+      <li><a href="index.html#about" data-hover>About</a></li>
+      <li><a href="index.html#portfolio" data-hover>Projects</a></li>
+      <li><a href="index.html#experience" data-hover>Experience</a></li>
+      <li><a href="index.html#contact" data-hover>Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Project Detail Section -->
+  <section class="section project-detail-section">
+    <div class="project-detail-container">
+      <!-- Back Button -->
+      <a href="index.html#portfolio" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Projects
+      </a>
+
+      <!-- Project Content (loaded dynamically) -->
+      <div id="projectContent" class="project-content">
+        <div class="loading-message">Loading project details...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <p>&copy; 2025 Beau Fontenot</p>
+  </footer>
+
+  <script>
+    // ==================== MOUSE FOLLOWER TRAIL ====================
+    const mouseFollower = document.querySelector('.mouse-follower');
+
+    let mouseX = 0, mouseY = 0;
+    let followerX = 0, followerY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Smooth follower animation with dynamic speed
+    function animateFollower() {
+      const fdx = mouseX - followerX;
+      const fdy = mouseY - followerY;
+      const distance = Math.sqrt(fdx * fdx + fdy * fdy);
+      
+      const speed = Math.min(0.02 + (distance * 0.001), 0.3);
+      
+      followerX += fdx * speed;
+      followerY += fdy * speed;
+      mouseFollower.style.left = followerX + 'px';
+      mouseFollower.style.top = followerY + 'px';
+
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
+
+    // ==================== FLUID SIMULATOR ====================
+    class FluidSimulator {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.particleCount = 80;
+        this.mouse = { x: 0, y: 0, radius: 150 };
+        this.lastScrollY = 0;
+        this.maxParticles = 200;
+        this.isMobile = window.innerWidth <= 768;
+        
+        this.resize();
+        this.init();
+        window.addEventListener('resize', () => {
+          this.resize();
+          this.isMobile = window.innerWidth <= 768;
+        });
+      }
+      
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+      
+      init() {
+        this.particles = [];
+        for (let i = 0; i < this.particleCount; i++) {
+          this.createParticle(Math.random() * this.canvas.width, Math.random() * this.canvas.height);
+        }
+      }
+      
+      createParticle(x, y) {
+        const colorIndex = Math.floor(Math.random() * 3);
+        this.particles.push({
+          x: x,
+          y: y,
+          originX: x,
+          originY: y,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 3 + 1,
+          color: colorIndex === 0 ? '#3b82f6' : colorIndex === 1 ? '#a855f7' : '#4ecca3'
+        });
+      }
+      
+      update() {
+        const scrollY = window.pageYOffset;
+        const scrollDelta = scrollY - this.lastScrollY;
+        
+        if (Math.abs(scrollDelta) > 5 && this.particles.length < this.maxParticles) {
+          const particlesToSpawn = Math.min(
+            Math.ceil(Math.abs(scrollDelta) / 20), 
+            this.maxParticles - this.particles.length
+          );
+          
+          for (let i = 0; i < particlesToSpawn; i++) {
+            if (scrollDelta > 0) {
+              this.createParticle(Math.random() * this.canvas.width, this.canvas.height + scrollY);
+            } else {
+              this.createParticle(Math.random() * this.canvas.width, scrollY - 50);
+            }
+          }
+        }
+        
+        const scrollVelocity = Math.abs(scrollDelta);
+        const bounceForce = Math.min(scrollVelocity * 0.02, 2);
+        
+        this.lastScrollY = scrollY;
+        
+        this.particles = this.particles.filter(particle => {
+          if (!this.isMobile) {
+            const dx = this.mouse.x - particle.x;
+            const dy = (this.mouse.y + scrollY) - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < this.mouse.radius) {
+              const force = (this.mouse.radius - distance) / this.mouse.radius;
+              const angle = Math.atan2(dy, dx);
+              particle.vx -= Math.cos(angle) * force * 0.5;
+              particle.vy -= Math.sin(angle) * force * 0.5;
+            }
+          }
+          
+          const dxOrigin = particle.originX - particle.x;
+          const dyOrigin = particle.originY - particle.y;
+          particle.vx += dxOrigin * 0.001;
+          particle.vy += dyOrigin * 0.001;
+          
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          
+          particle.vx *= 0.95;
+          particle.vy *= 0.95;
+          
+          if (scrollDelta !== 0 && !this.isMobile) {
+            particle.vy += (Math.random() - 0.5) * bounceForce;
+            particle.vx += (Math.random() - 0.5) * bounceForce * 0.5;
+          }
+          
+          const driftAmount = this.isMobile ? 0.03 : 0.02;
+          particle.vx += (Math.random() - 0.5) * driftAmount;
+          particle.vy += (Math.random() - 0.5) * driftAmount;
+          
+          const viewportTop = scrollY - 200;
+          const viewportBottom = scrollY + this.canvas.height + 200;
+          const isInView = particle.y > viewportTop && particle.y < viewportBottom && 
+                          particle.x > -100 && particle.x < this.canvas.width + 100;
+          
+          return isInView;
+        });
+      }
+      
+      draw() {
+        const scrollY = window.pageYOffset;
+        
+        this.ctx.fillStyle = '#0f0f1a';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.ctx.strokeStyle = 'rgba(168, 85, 247, 0.15)';
+        this.ctx.lineWidth = 1;
+        
+        for (let i = 0; i < this.particles.length; i++) {
+          for (let j = i + 1; j < this.particles.length; j++) {
+            const dx = this.particles[i].x - this.particles[j].x;
+            const dy = this.particles[i].y - this.particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+              const opacity = (1 - distance / 100) * 0.3;
+              this.ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+              this.ctx.beginPath();
+              this.ctx.moveTo(this.particles[i].x, this.particles[i].y - scrollY);
+              this.ctx.lineTo(this.particles[j].x, this.particles[j].y - scrollY);
+              this.ctx.stroke();
+            }
+          }
+        }
+        
+        this.particles.forEach(particle => {
+          const screenY = particle.y - scrollY;
+          
+          if (screenY > -50 && screenY < this.canvas.height + 50) {
+            this.ctx.shadowBlur = 20;
+            this.ctx.shadowColor = particle.color;
+            this.ctx.fillStyle = particle.color;
+            this.ctx.globalAlpha = 0.6;
+            
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, screenY, particle.radius, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            this.ctx.shadowBlur = 0;
+            this.ctx.globalAlpha = 1;
+          }
+        });
+      }
+      
+      animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+    
+    const fluidCanvas = document.getElementById('fluid-canvas');
+    const fluidSim = new FluidSimulator(fluidCanvas);
+    fluidSim.animate();
+    
+    document.addEventListener('mousemove', (e) => {
+      fluidSim.mouse.x = e.clientX;
+      fluidSim.mouse.y = e.clientY;
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        fluidSim.mouse.x = e.touches[0].clientX;
+        fluidSim.mouse.y = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    // ==================== LOAD PROJECT DETAILS ====================
+    async function loadProjectDetails() {
+      try {
+        // Get project ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectFile = urlParams.get('project');
+        
+        if (!projectFile) {
+          throw new Error('No project specified');
+        }
+        
+        // Load the project data
+        const response = await fetch(`projects/${projectFile}`);
+        if (!response.ok) {
+          throw new Error('Project not found');
+        }
+        
+        const project = await response.json();
+        
+        // Update page title
+        document.title = `${project.title} | Beau Fontenot`;
+        
+        // Render project details
+        const container = document.getElementById('projectContent');
+        container.innerHTML = `
+          <div class="project-header">
+            <h1 class="project-title">${project.title}</h1>
+            <div class="project-meta">
+              <span class="project-date">${new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+          </div>
+          
+          <div class="project-image-container">
+            <img src="${project.image}" alt="${project.title}" class="project-detail-image">
+          </div>
+          
+          <div class="project-body">
+            <div class="project-section">
+              <h2>About this project</h2>
+              <p class="project-description">${project.description}</p>
+            </div>
+            
+            ${project.longDescription ? `
+              <div class="project-section">
+                <h2>Details</h2>
+                <div class="project-long-description">${project.longDescription}</div>
+              </div>
+            ` : ''}
+            
+            <div class="project-section">
+              <h2>Technologies Used</h2>
+              <div class="project-tags">
+                ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+            </div>
+            
+            ${project.features && project.features.length > 0 ? `
+              <div class="project-section">
+                <h2>Key Features</h2>
+                <ul class="project-features">
+                  ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+            
+            <div class="project-links-section">
+              ${project.link && project.link !== '#' ? `
+                <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-action-button" data-hover>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  View Live Demo
+                </a>
+              ` : ''}
+              ${project.github && project.github !== '#' ? `
+                <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-action-button secondary" data-hover>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  View on GitHub
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        
+      } catch (error) {
+        console.error('Error loading project:', error);
+        const container = document.getElementById('projectContent');
+        container.innerHTML = `
+          <div class="error-message">
+            <h2>Project Not Found</h2>
+            <p>Sorry, we couldn't find the project you're looking for.</p>
+            <a href="index.html#portfolio" class="back-link">← Back to Projects</a>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProjectDetails();
+    });
+  </script>
+</body>
+</html>

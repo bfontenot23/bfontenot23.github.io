@@ -142,11 +142,12 @@
   }
 
   .portfolio-card {
-    @apply rounded-2xl overflow-hidden relative;
+    @apply rounded-2xl overflow-hidden relative no-underline block;
     background: var(--bg-card);
     transform-style: preserve-3d;
     transition: transform 0.5s, box-shadow 0.5s;
     max-width: 350px;
+    cursor: pointer;
   }
 
   .portfolio-card:hover {
@@ -196,12 +197,14 @@
     @apply flex gap-4;
   }
 
-  .card-links a {
+  .card-links a,
+  .card-link-item {
     @apply flex items-center gap-2 no-underline transition-colors duration-300;
     color: var(--text-secondary);
   }
 
-  .card-links a:hover {
+  .card-links a:hover,
+  .card-link-item:hover {
     color: var(--accent-green);
   }
 
@@ -377,6 +380,180 @@
   .tilt-card {
     transform-style: preserve-3d;
     perspective: 1000px;
+  }
+
+  /* ==================== PROJECT DETAIL PAGE ==================== */
+  .project-detail-section {
+    @apply min-h-screen pt-32;
+  }
+
+  .project-detail-container {
+    @apply max-w-4xl mx-auto;
+  }
+
+  .back-button {
+    @apply inline-flex items-center gap-2 mb-8 no-underline transition-all duration-300;
+    color: var(--text-secondary);
+  }
+
+  .back-button:hover {
+    color: var(--accent-blue);
+    transform: translateX(-5px);
+  }
+
+  .back-button svg {
+    @apply w-5 h-5;
+  }
+
+  .project-content {
+    @apply space-y-8;
+  }
+
+  .loading-message {
+    @apply text-center py-20;
+    color: var(--text-secondary);
+  }
+
+  .error-message {
+    @apply text-center py-20;
+  }
+
+  .error-message h2 {
+    @apply text-3xl mb-4;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .error-message p {
+    @apply mb-6;
+    color: var(--text-secondary);
+  }
+
+  .back-link {
+    @apply inline-block py-3 px-6 rounded-lg no-underline transition-all duration-300;
+    background: var(--bg-card);
+    color: var(--accent-blue);
+  }
+
+  .back-link:hover {
+    background: var(--accent-blue);
+    color: white;
+  }
+
+  .project-header {
+    @apply mb-8;
+  }
+
+  .project-title {
+    @apply font-space mb-4;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .project-meta {
+    @apply flex items-center gap-4;
+  }
+
+  .project-date {
+    @apply text-sm py-1 px-3 rounded-full;
+    background: rgba(168, 85, 247, 0.2);
+    border: 1px solid var(--accent-purple);
+    color: var(--accent-purple);
+  }
+
+  .project-image-container {
+    @apply rounded-2xl overflow-hidden mb-8;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .project-detail-image {
+    @apply w-full h-auto;
+  }
+
+  .project-body {
+    @apply space-y-8;
+  }
+
+  .project-section {
+    @apply space-y-4;
+  }
+
+  .project-section h2 {
+    @apply font-space text-2xl;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .project-description,
+  .project-long-description {
+    @apply text-lg leading-relaxed;
+    color: var(--text-secondary);
+  }
+
+  .project-long-description p {
+    @apply mb-4;
+  }
+
+  .project-tags {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .project-tags .tag {
+    @apply py-2 px-4 text-base;
+  }
+
+  .project-features {
+    @apply space-y-3 pl-5;
+    color: var(--text-secondary);
+  }
+
+  .project-features li {
+    @apply relative text-lg;
+  }
+
+  .project-features li::before {
+    content: '▹';
+    @apply absolute -left-5 text-2xl;
+    color: var(--accent-green);
+  }
+
+  .project-links-section {
+    @apply flex gap-4 pt-4 flex-wrap;
+  }
+
+  .project-action-button {
+    @apply flex items-center gap-3 py-4 px-8 rounded-2xl no-underline text-white transition-all duration-300;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-1);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .project-action-button.secondary {
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-2);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .project-action-button:hover {
+    @apply -translate-y-1 scale-105;
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+  }
+
+  .project-action-button.secondary:hover {
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3);
+  }
+
+  .project-action-button svg {
+    @apply w-6 h-6;
   }
 }
 
