@@ -173,6 +173,8 @@
         this.particles = [];
         this.particleCount = 80;
         this.mouse = { x: 0, y: 0, radius: 150 };
+        this.lastScrollY = 0;
+        this.maxParticles = 200;
         
         this.resize();
         this.init();
@@ -187,29 +189,47 @@
       init() {
         this.particles = [];
         for (let i = 0; i < this.particleCount; i++) {
-          const x = Math.random() * this.canvas.width;
-          const y = Math.random() * this.canvas.height;
-          this.particles.push({
-            x: x,
-            y: y,
-            originX: x,
-            originY: y,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            radius: Math.random() * 3 + 1,
-            color: i % 3 === 0 ? '#3b82f6' : i % 3 === 1 ? '#a855f7' : '#4ecca3'
-          });
+          this.createParticle(Math.random() * this.canvas.width, Math.random() * this.canvas.height);
         }
+      }
+      
+      createParticle(x, y) {
+        const colorIndex = Math.floor(Math.random() * 3);
+        this.particles.push({
+          x: x,
+          y: y,
+          originX: x,
+          originY: y,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 3 + 1,
+          color: colorIndex === 0 ? '#3b82f6' : colorIndex === 1 ? '#a855f7' : '#4ecca3'
+        });
       }
       
       update() {
         const scrollY = window.pageYOffset;
+        const scrollDelta = scrollY - this.lastScrollY;
         
-        this.particles.forEach(particle => {
-          // Adjust particle position based on scroll
-          const scrolledOriginY = particle.originY - scrollY * 0.5;
-          
-          // Mouse interaction
+        // Spawn new particles when scrolling
+        if (Math.abs(scrollDelta) > 10 && this.particles.length < this.maxParticles) {
+          const particlesToSpawn = Math.min(3, this.maxParticles - this.particles.length);
+          for (let i = 0; i < particlesToSpawn; i++) {
+            if (scrollDelta > 0) {
+              // Scrolling down - spawn at bottom
+              this.createParticle(Math.random() * this.canvas.width, this.canvas.height + scrollY);
+            } else {
+              // Scrolling up - spawn at top
+              this.createParticle(Math.random() * this.canvas.width, scrollY - 50);
+            }
+          }
+        }
+        
+        this.lastScrollY = scrollY;
+        
+        // Update particles and remove off-screen ones
+        this.particles = this.particles.filter(particle => {
+          // Mouse interaction (adjusted for scroll)
           const dx = this.mouse.x - particle.x;
           const dy = (this.mouse.y + scrollY) - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -223,7 +243,7 @@
           
           // Return to origin force
           const dxOrigin = particle.originX - particle.x;
-          const dyOrigin = scrolledOriginY - particle.y;
+          const dyOrigin = particle.originY - particle.y;
           particle.vx += dxOrigin * 0.001;
           particle.vy += dyOrigin * 0.001;
           
@@ -235,24 +255,28 @@
           particle.vx *= 0.95;
           particle.vy *= 0.95;
           
-          // Boundaries with wrap-around
-          if (particle.x < -50) particle.x = this.canvas.width + 50;
-          if (particle.x > this.canvas.width + 50) particle.x = -50;
-          if (particle.y < -50) particle.y = this.canvas.height + 50;
-          if (particle.y > this.canvas.height + 50) particle.y = -50;
-          
           // Gentle drift
           particle.vx += (Math.random() - 0.5) * 0.02;
           particle.vy += (Math.random() - 0.5) * 0.02;
+          
+          // Remove particles that are too far off screen
+          const viewportTop = scrollY - 200;
+          const viewportBottom = scrollY + this.canvas.height + 200;
+          const isInView = particle.y > viewportTop && particle.y < viewportBottom && 
+                          particle.x > -100 && particle.x < this.canvas.width + 100;
+          
+          return isInView;
         });
       }
       
       draw() {
+        const scrollY = window.pageYOffset;
+        
         // Clear completely (no trails)
         this.ctx.fillStyle = '#0f0f1a';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw connections
+        // Draw connections (only for particles in viewport)
         this.ctx.strokeStyle = 'rgba(168, 85, 247, 0.15)';
         this.ctx.lineWidth = 1;
         
@@ -266,26 +290,31 @@
               const opacity = (1 - distance / 100) * 0.3;
               this.ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
               this.ctx.beginPath();
-              this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
-              this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+              this.ctx.moveTo(this.particles[i].x, this.particles[i].y - scrollY);
+              this.ctx.lineTo(this.particles[j].x, this.particles[j].y - scrollY);
               this.ctx.stroke();
             }
           }
         }
         
-        // Draw particles with glow
+        // Draw particles with glow (adjusted for scroll)
         this.particles.forEach(particle => {
-          this.ctx.shadowBlur = 20;
-          this.ctx.shadowColor = particle.color;
-          this.ctx.fillStyle = particle.color;
-          this.ctx.globalAlpha = 0.6;
+          const screenY = particle.y - scrollY;
           
-          this.ctx.beginPath();
-          this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-          this.ctx.fill();
-          
-          this.ctx.shadowBlur = 0;
-          this.ctx.globalAlpha = 1;
+          // Only draw if in viewport
+          if (screenY > -50 && screenY < this.canvas.height + 50) {
+            this.ctx.shadowBlur = 20;
+            this.ctx.shadowColor = particle.color;
+            this.ctx.fillStyle = particle.color;
+            this.ctx.globalAlpha = 0.6;
+            
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, screenY, particle.radius, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            this.ctx.shadowBlur = 0;
+            this.ctx.globalAlpha = 1;
+          }
         });
       }
       
