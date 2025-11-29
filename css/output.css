@@ -659,23 +659,12 @@ body {
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
   background: linear-gradient(to bottom, var(--bg-dark), transparent);
-}
-
-.logo {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  background: var(--gradient-3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .nav-links {
@@ -1213,6 +1202,10 @@ body {
   gap: 0.75rem;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .gap-8 {
   gap: 2rem;
 }
@@ -1493,7 +1486,10 @@ body {
   }
 
   .nav-links {
-    display: none;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .about-content {

@@ -84,16 +84,8 @@
 
   /* ==================== NAVIGATION ==================== */
   .main-nav {
-    @apply fixed top-0 left-0 right-0 py-6 px-12 flex justify-between items-center z-[100];
+    @apply fixed top-0 left-0 right-0 py-6 px-12 flex justify-center items-center z-[100];
     background: linear-gradient(to bottom, var(--bg-dark), transparent);
-  }
-
-  .logo {
-    @apply font-space text-2xl font-bold;
-    background: var(--gradient-3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .nav-links {
@@ -330,7 +322,7 @@
   }
 
   .nav-links {
-    @apply hidden;
+    @apply flex gap-4 text-sm;
   }
 
   .about-content {
