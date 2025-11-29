@@ -23,7 +23,8 @@
     <ul class="nav-links">
       <li><a href="#home" data-hover>Home</a></li>
       <li><a href="#about" data-hover>About</a></li>
-      <li><a href="#portfolio" data-hover>Work</a></li>
+      <li><a href="#portfolio" data-hover>Projects</a></li>
+      <li><a href="#experience" data-hover>Experience</a></li>
       <li><a href="#contact" data-hover>Contact</a></li>
     </ul>
   </nav>
@@ -88,9 +89,17 @@
 
   <!-- Portfolio Section -->
   <section class="section" id="portfolio">
-    <h2 class="section-title">My <span>Work</span></h2>
+    <h2 class="section-title">My <span>Projects</span></h2>
     <div class="portfolio-grid" id="portfolioGrid">
       <!-- Portfolio items loaded dynamically -->
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section class="section" id="experience">
+    <h2 class="section-title">Work <span>Experience</span></h2>
+    <div class="experience-container" id="experienceContainer">
+      <!-- Work experience items loaded dynamically -->
     </div>
   </section>
 
@@ -390,17 +399,17 @@
       }
     }, { passive: true });
 
-    // ==================== LOAD PORTFOLIO ITEMS FROM POSTS FOLDER ====================
+    // ==================== LOAD PORTFOLIO ITEMS FROM PROJECTS FOLDER ====================
     async function loadPortfolio() {
       try {
         // Load the index file that lists all project files
-        const indexResponse = await fetch('posts/index.json');
+        const indexResponse = await fetch('projects/index.json');
         const projectFiles = await indexResponse.json();
         
         // Load each project file
         const projects = await Promise.all(
           projectFiles.map(async (filename) => {
-            const response = await fetch(`posts/${filename}`);
+            const response = await fetch(`projects/${filename}`);
             return response.json();
           })
         );
@@ -452,9 +461,73 @@
         
       } catch (error) {
         console.error('Error loading portfolio:', error);
-        // Fallback content if posts fail to load
+        // Fallback content if projects fail to load
         const grid = document.getElementById('portfolioGrid');
         grid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Portfolio projects loading...</p>';
+      }
+    }
+
+    // ==================== LOAD WORK EXPERIENCE FROM WORK-EXPERIENCE FOLDER ====================
+    async function loadWorkExperience() {
+      try {
+        // Load the index file that lists all work experience files
+        const indexResponse = await fetch('work-experience/index.json');
+        const experienceFiles = await indexResponse.json();
+        
+        // Load each work experience file
+        const experiences = await Promise.all(
+          experienceFiles.map(async (filename) => {
+            const response = await fetch(`work-experience/${filename}`);
+            return response.json();
+          })
+        );
+        
+        // Sort by start date (most recent first)
+        experiences.sort((a, b) => {
+          const dateA = new Date(a.startDate || a.date);
+          const dateB = new Date(b.startDate || b.date);
+          return dateB - dateA;
+        });
+        
+        const container = document.getElementById('experienceContainer');
+        
+        experiences.forEach((exp, index) => {
+          const card = document.createElement('div');
+          card.className = 'experience-card';
+          card.style.animationDelay = `${index * 0.1}s`;
+          
+          const endDate = exp.endDate === 'Present' || !exp.endDate ? 'Present' : exp.endDate;
+          const dateRange = `${exp.startDate} - ${endDate}`;
+          
+          card.innerHTML = `
+            <div class="experience-header">
+              <div class="experience-title-group">
+                <h3>${exp.position}</h3>
+                <p class="experience-company">${exp.company}</p>
+              </div>
+              <span class="experience-date">${dateRange}</span>
+            </div>
+            <p class="experience-description">${exp.description}</p>
+            ${exp.achievements && exp.achievements.length > 0 ? `
+              <ul class="experience-achievements">
+                ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+              </ul>
+            ` : ''}
+            ${exp.technologies && exp.technologies.length > 0 ? `
+              <div class="experience-technologies">
+                ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+              </div>
+            ` : ''}
+          `;
+          
+          container.appendChild(card);
+        });
+        
+      } catch (error) {
+        console.error('Error loading work experience:', error);
+        // Fallback content if work experience fails to load
+        const container = document.getElementById('experienceContainer');
+        container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Work experience loading...</p>';
       }
     }
 
@@ -487,6 +560,7 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       loadPortfolio();
+      loadWorkExperience();
       
       // Observe sections for scroll animations
       document.querySelectorAll('section').forEach(section => {

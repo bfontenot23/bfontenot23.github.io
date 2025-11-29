@@ -209,6 +209,80 @@
     @apply w-5 h-5;
   }
 
+  /* ==================== WORK EXPERIENCE SECTION ==================== */
+  .experience-container {
+    @apply max-w-4xl mx-auto space-y-6;
+  }
+
+  .experience-card {
+    @apply rounded-2xl p-6 relative transition-all duration-300;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-1);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .experience-card:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+  }
+
+  .experience-header {
+    @apply flex justify-between items-start mb-4 gap-4 flex-wrap;
+  }
+
+  .experience-title-group h3 {
+    @apply font-space text-2xl mb-1;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .experience-company {
+    @apply text-lg font-medium;
+    color: var(--accent-green);
+  }
+
+  .experience-date {
+    @apply text-sm py-1 px-3 rounded-full whitespace-nowrap;
+    background: rgba(78, 204, 163, 0.2);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+  }
+
+  .experience-description {
+    @apply mb-4 leading-relaxed;
+    color: var(--text-secondary);
+  }
+
+  .experience-achievements {
+    @apply mb-4 space-y-2 pl-5;
+    color: var(--text-secondary);
+  }
+
+  .experience-achievements li {
+    @apply relative;
+  }
+
+  .experience-achievements li::before {
+    content: '▹';
+    @apply absolute -left-5;
+    color: var(--accent-purple);
+  }
+
+  .experience-technologies {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .tech-tag {
+    @apply py-1 px-3 rounded-full text-sm;
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+  }
+
   /* ==================== ABOUT SECTION ==================== */
   .about-content {
     @apply grid gap-16 items-center;
