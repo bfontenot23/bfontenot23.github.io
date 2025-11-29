@@ -137,8 +137,8 @@
 
   /* ==================== PORTFOLIO GRID ==================== */
   .portfolio-grid {
-    @apply grid gap-8;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    @apply grid gap-8 justify-center;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
   }
 
   .portfolio-card {
@@ -146,6 +146,7 @@
     background: var(--bg-card);
     transform-style: preserve-3d;
     transition: transform 0.5s, box-shadow 0.5s;
+    max-width: 350px;
   }
 
   .portfolio-card:hover {

@@ -742,8 +742,9 @@ body {
 
 .portfolio-grid {
   display: grid;
+  justify-content: center;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
 }
 
 .portfolio-card {
@@ -753,6 +754,7 @@ body {
   background: var(--bg-card);
   transform-style: preserve-3d;
   transition: transform 0.5s, box-shadow 0.5s;
+  max-width: 350px;
 }
 
 .portfolio-card:hover {
