@@ -286,10 +286,11 @@
 
   /* ==================== MOUSE FOLLOWER ==================== */
   .mouse-follower {
-    @apply fixed w-72 h-72 rounded-full pointer-events-none -z-10;
+    @apply fixed w-72 h-72 rounded-full pointer-events-none;
     background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
     transform: translate(-50%, -50%);
     transition: opacity 0.3s;
+    z-index: 10;
   }
 
   /* ==================== TILT EFFECT ==================== */

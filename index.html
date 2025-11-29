@@ -211,9 +211,13 @@
         const scrollY = window.pageYOffset;
         const scrollDelta = scrollY - this.lastScrollY;
         
-        // Spawn new particles when scrolling
-        if (Math.abs(scrollDelta) > 10 && this.particles.length < this.maxParticles) {
-          const particlesToSpawn = Math.min(3, this.maxParticles - this.particles.length);
+        // Spawn new particles based on scroll distance (more scrolling = more particles)
+        if (Math.abs(scrollDelta) > 5 && this.particles.length < this.maxParticles) {
+          const particlesToSpawn = Math.min(
+            Math.ceil(Math.abs(scrollDelta) / 20), 
+            this.maxParticles - this.particles.length
+          );
+          
           for (let i = 0; i < particlesToSpawn; i++) {
             if (scrollDelta > 0) {
               // Scrolling down - spawn at bottom
