@@ -1087,6 +1087,15 @@ body {
   color: var(--text-secondary);
 }
 
+@media (min-width: 769px) {
+  #contact {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 .contact-links {
   display: flex;
   justify-content: center;

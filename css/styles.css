@@ -340,6 +340,15 @@
     color: var(--text-secondary);
   }
 
+  @media (min-width: 769px) {
+    #contact {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
   .contact-links {
     @apply flex justify-center gap-8;
   }
