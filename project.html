@@ -258,16 +258,35 @@
     }
     
     const fluidCanvas = document.getElementById('fluid-canvas');
-    const fluidSim = new FluidSimulator(fluidCanvas);
-    fluidSim.animate();
+    let fluidSim;
+    
+    // Initialize fluid simulator after any hash navigation completes
+    function initFluidSim() {
+      if (fluidSim) {
+        fluidSim.init(); // Reinitialize if already exists
+      } else {
+        fluidSim = new FluidSimulator(fluidCanvas);
+        fluidSim.animate();
+      }
+    }
+    
+    // Delay initialization to allow hash navigation to complete
+    setTimeout(initFluidSim, 100);
+    
+    // Reinitialize on hash change
+    window.addEventListener('hashchange', () => {
+      setTimeout(initFluidSim, 100);
+    });
     
     document.addEventListener('mousemove', (e) => {
-      fluidSim.mouse.x = e.clientX;
-      fluidSim.mouse.y = e.clientY;
+      if (fluidSim) {
+        fluidSim.mouse.x = e.clientX;
+        fluidSim.mouse.y = e.clientY;
+      }
     }, { passive: true });
     
     document.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
+      if (e.touches.length > 0 && fluidSim) {
         fluidSim.mouse.x = e.touches[0].clientX;
         fluidSim.mouse.y = e.touches[0].clientY;
       }
