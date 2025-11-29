@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Interactive Showcase</title>
+  <title>Beau Fontenot | Portfolio</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,14 +116,10 @@
   </footer>
 
   <script>
-    // ==================== CUSTOM CURSOR ====================
-    const cursor = document.querySelector('.cursor');
-    const cursorDot = document.querySelector('.cursor-dot');
+    // ==================== MOUSE FOLLOWER TRAIL ====================
     const mouseFollower = document.querySelector('.mouse-follower');
 
     let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let dotX = 0, dotY = 0;
     let followerX = 0, followerY = 0;
 
     document.addEventListener('mousemove', (e) => {
@@ -131,24 +127,8 @@
       mouseY = e.clientY;
     });
 
-    // Smooth cursor animation
-    function animateCursor() {
-      // Cursor ring - smooth follow
-      const dx = mouseX - cursorX;
-      const dy = mouseY - cursorY;
-      cursorX += dx * 0.15;
-      cursorY += dy * 0.15;
-      cursor.style.left = cursorX + 'px';
-      cursor.style.top = cursorY + 'px';
-
-      // Cursor dot - fast follow
-      const ddx = mouseX - dotX;
-      const ddy = mouseY - dotY;
-      dotX += ddx * 0.5;
-      dotY += ddy * 0.5;
-      cursorDot.style.left = dotX + 'px';
-      cursorDot.style.top = dotY + 'px';
-
+    // Smooth follower animation with dynamic speed
+    function animateFollower() {
       // Mouse follower - dynamic speed based on distance
       const fdx = mouseX - followerX;
       const fdy = mouseY - followerY;
@@ -163,16 +143,9 @@
       mouseFollower.style.left = followerX + 'px';
       mouseFollower.style.top = followerY + 'px';
 
-      requestAnimationFrame(animateCursor);
+      requestAnimationFrame(animateFollower);
     }
-    animateCursor();
-
-    // Hover effect for cursor
-    const hoverElements = document.querySelectorAll('a, button, [data-hover]');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+    animateFollower();
 
     // ==================== 3D TILT EFFECT ====================
     function initTiltEffect() {
