@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "title": "Project One",
+  "description": "A brief description of your first project. Explain what technologies you used and what problems it solves.",
+  "tags": ["JavaScript", "HTML", "CSS"],
+  "image": "https://via.placeholder.com/400x300/1a1a2e/4ecca3?text=Project+1",
+  "link": "#",
+  "github": "#",
+  "date": "2024-01-15"
+}

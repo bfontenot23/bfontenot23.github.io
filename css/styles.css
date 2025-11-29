@@ -1,0 +1,401 @@
+/* ==================== TAILWIND BASE LAYER EXTENSIONS ==================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --bg-dark: #0f0f1a;
+  --bg-card: #1a1a2e;
+  --accent-blue: #3b82f6;
+  --accent-purple: #a855f7;
+  --accent-green: #4ecca3;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b2;
+  --gradient-1: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  --gradient-2: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+  --gradient-3: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+}
+
+/* ==================== BASE STYLES ==================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-outfit bg-dark text-white min-h-screen overflow-x-hidden;
+    cursor: none;
+  }
+}
+
+/* ==================== CUSTOM CURSOR ==================== */
+@layer components {
+  .cursor {
+    @apply fixed w-5 h-5 rounded-full pointer-events-none z-[9999];
+    border: 2px solid var(--accent-purple);
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-color 0.3s;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    @apply fixed w-2 h-2 rounded-full pointer-events-none z-[9999];
+    background: var(--accent-green);
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+
+  .cursor.hover {
+    @apply w-12 h-12;
+    border-color: var(--accent-green);
+  }
+
+  /* ==================== ANIMATED BACKGROUND ==================== */
+  .bg-animation {
+    @apply fixed top-0 left-0 w-full h-full -z-10 overflow-hidden;
+  }
+
+  .floating-orb {
+    @apply absolute rounded-full;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    @apply w-[600px] h-[600px];
+    background: var(--accent-blue);
+    top: -200px;
+    left: -200px;
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    @apply w-[500px] h-[500px];
+    background: var(--accent-purple);
+    top: 50%;
+    right: -150px;
+    animation-delay: -5s;
+  }
+
+  .orb-3 {
+    @apply w-[400px] h-[400px];
+    background: var(--accent-green);
+    bottom: -100px;
+    left: 30%;
+    animation-delay: -10s;
+  }
+
+  /* ==================== HERO SECTION ==================== */
+  .hero {
+    @apply min-h-screen flex flex-col justify-center items-center text-center p-8 relative;
+  }
+
+  .hero-content {
+    @apply max-w-[1000px];
+  }
+
+  .hero h1 {
+    @apply font-space font-bold leading-tight mb-6;
+    font-size: clamp(3rem, 10vw, 8rem);
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textGlow 3s ease-in-out infinite alternate;
+  }
+
+  .hero .subtitle {
+    @apply font-light mb-8;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--text-secondary);
+  }
+
+  .hero .tagline {
+    @apply inline-block py-3 px-8 rounded-full font-semibold text-lg;
+    background: var(--gradient-2);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .scroll-indicator {
+    @apply absolute bottom-8 left-1/2 flex flex-col items-center gap-2;
+    transform: translateX(-50%);
+    color: var(--text-secondary);
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-indicator svg {
+    @apply w-6 h-6;
+  }
+
+  /* ==================== NAVIGATION ==================== */
+  .main-nav {
+    @apply fixed top-0 left-0 right-0 py-6 px-12 flex justify-between items-center z-[100];
+    background: linear-gradient(to bottom, var(--bg-dark), transparent);
+  }
+
+  .logo {
+    @apply font-space text-2xl font-bold;
+    background: var(--gradient-3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    @apply flex gap-8 list-none;
+  }
+
+  .nav-links a {
+    @apply font-medium relative no-underline transition-colors duration-300;
+    color: var(--text-secondary);
+  }
+
+  .nav-links a::after {
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300;
+    content: '';
+    background: var(--gradient-1);
+  }
+
+  .nav-links a:hover {
+    @apply text-white;
+  }
+
+  .nav-links a:hover::after {
+    @apply w-full;
+  }
+
+  /* ==================== SECTIONS ==================== */
+  .section {
+    @apply py-24 px-8 max-w-7xl mx-auto;
+  }
+
+  .section-title {
+    @apply font-space text-center mb-16 relative;
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+
+  .section-title span {
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ==================== PORTFOLIO GRID ==================== */
+  .portfolio-grid {
+    @apply grid gap-8;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
+  .portfolio-card {
+    @apply rounded-2xl overflow-hidden relative;
+    background: var(--bg-card);
+    transform-style: preserve-3d;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+      0 25px 50px rgba(168, 85, 247, 0.2),
+      0 0 100px rgba(78, 204, 163, 0.1);
+  }
+
+  .card-image {
+    @apply w-full h-56 object-cover transition-transform duration-500;
+  }
+
+  .portfolio-card:hover .card-image {
+    @apply scale-110;
+  }
+
+  .card-content {
+    @apply p-6;
+  }
+
+  .card-content h3 {
+    @apply font-space text-2xl mb-3;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-content p {
+    @apply leading-relaxed mb-4;
+    color: var(--text-secondary);
+  }
+
+  .card-tags {
+    @apply flex flex-wrap gap-2 mb-4;
+  }
+
+  .tag {
+    @apply py-1 px-3 rounded-full text-sm;
+    background: rgba(168, 85, 247, 0.2);
+    border: 1px solid var(--accent-purple);
+    color: var(--accent-purple);
+  }
+
+  .card-links {
+    @apply flex gap-4;
+  }
+
+  .card-links a {
+    @apply flex items-center gap-2 no-underline transition-colors duration-300;
+    color: var(--text-secondary);
+  }
+
+  .card-links a:hover {
+    color: var(--accent-green);
+  }
+
+  .card-links svg {
+    @apply w-5 h-5;
+  }
+
+  /* ==================== ABOUT SECTION ==================== */
+  .about-content {
+    @apply grid gap-16 items-center;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-text {
+    @apply text-lg leading-loose;
+    color: var(--text-secondary);
+  }
+
+  .about-text strong {
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .skills-container {
+    @apply flex flex-wrap gap-4;
+  }
+
+  .skill {
+    @apply py-3 px-6 rounded-lg transition-all duration-300;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-1);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .skill:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  }
+
+  /* ==================== CONTACT SECTION ==================== */
+  .contact-content {
+    @apply text-center max-w-xl mx-auto;
+  }
+
+  .contact-content p {
+    @apply text-lg mb-8;
+    color: var(--text-secondary);
+  }
+
+  .contact-links {
+    @apply flex justify-center gap-8;
+  }
+
+  .contact-link {
+    @apply flex items-center gap-3 py-4 px-8 rounded-2xl no-underline text-white transition-all duration-300;
+    background: var(--bg-card);
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-2);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .contact-link:hover {
+    @apply -translate-y-1 scale-105;
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3);
+  }
+
+  .contact-link svg {
+    @apply w-6 h-6;
+  }
+
+  /* ==================== FOOTER ==================== */
+  .main-footer {
+    @apply text-center py-8;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ==================== MOUSE FOLLOWER ==================== */
+  .mouse-follower {
+    @apply fixed w-72 h-72 rounded-full pointer-events-none -z-10;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+  }
+
+  /* ==================== TILT EFFECT ==================== */
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+}
+
+/* ==================== KEYFRAME ANIMATIONS ==================== */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(50px, 50px) rotate(5deg); }
+  50% { transform: translate(0, 100px) rotate(0deg); }
+  75% { transform: translate(-50px, 50px) rotate(-5deg); }
+}
+
+@keyframes textGlow {
+  0% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); }
+  100% { filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+@media (max-width: 768px) {
+  .main-nav {
+    @apply py-4 px-6;
+  }
+
+  .nav-links {
+    @apply hidden;
+  }
+
+  .about-content {
+    @apply grid-cols-1 gap-8;
+  }
+
+  .contact-links {
+    @apply flex-col items-center;
+  }
+
+  .portfolio-grid {
+    @apply grid-cols-1;
+  }
+
+  body {
+    cursor: auto;
+  }
+
+  .cursor, .cursor-dot {
+    @apply hidden;
+  }
+}

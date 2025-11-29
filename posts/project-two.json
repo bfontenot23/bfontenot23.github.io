@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "title": "Project Two",
+  "description": "A brief description of your second project. Highlight your role and the impact of the project.",
+  "tags": ["Python", "Machine Learning"],
+  "image": "https://via.placeholder.com/400x300/1a1a2e/a855f7?text=Project+2",
+  "link": "#",
+  "github": "#",
+  "date": "2024-02-20"
+}
