@@ -1,0 +1,25 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Personal portfolio website with Tailwind CSS",
+  "scripts": {
+    "build:css": "tailwindcss -i ./css/styles.css -o ./css/output.css --minify",
+    "watch:css": "tailwindcss -i ./css/styles.css -o ./css/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.18"
+  },
+  "main": "tailwind.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfontenot23/bfontenot23.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bfontenot23/bfontenot23.github.io/issues"
+  },
+  "homepage": "https://github.com/bfontenot23/bfontenot23.github.io#readme"
+}

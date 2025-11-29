@@ -4,35 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio | Interactive Showcase</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'dark': '#0f0f1a',
-            'card': '#1a1a2e',
-            'accent-blue': '#3b82f6',
-            'accent-purple': '#a855f7',
-            'accent-green': '#4ecca3',
-            'text-primary': '#ffffff',
-            'text-secondary': '#a0a0b2',
-          },
-          fontFamily: {
-            'space': ['"Space Grotesk"', 'sans-serif'],
-            'outfit': ['Outfit', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Compiled Tailwind CSS with Custom Styles -->
+  <link rel="stylesheet" href="css/output.css">
 </head>
 <body>
   <!-- Custom Cursor -->
@@ -48,7 +25,7 @@
   </div>
 
   <!-- Navigation -->
-  <nav>
+  <nav class="main-nav">
     <div class="logo">Portfolio</div>
     <ul class="nav-links">
       <li><a href="#home" data-hover>Home</a></li>
@@ -74,7 +51,7 @@
   </section>
 
   <!-- Portfolio Section -->
-  <section id="portfolio">
+  <section class="section" id="portfolio">
     <h2 class="section-title">My <span>Work</span></h2>
     <div class="portfolio-grid" id="portfolioGrid">
       <!-- Portfolio items loaded dynamically -->
@@ -82,7 +59,7 @@
   </section>
 
   <!-- About Section -->
-  <section id="about">
+  <section class="section" id="about">
     <h2 class="section-title">About <span>Me</span></h2>
     <div class="about-content">
       <div class="about-text">
@@ -112,7 +89,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact">
+  <section class="section" id="contact">
     <h2 class="section-title">Get In <span>Touch</span></h2>
     <div class="contact-content">
       <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
@@ -134,7 +111,7 @@
   </section>
 
   <!-- Footer -->
-  <footer>
+  <footer class="main-footer">
     <p>&copy; 2024 Portfolio. Built with passion and creativity.</p>
   </footer>
 
