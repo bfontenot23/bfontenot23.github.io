@@ -320,7 +320,7 @@
           }
           
           // Gentle drift (slightly more on mobile for ambient movement)
-          const driftAmount = this.isMobile ? 0.03 : 0.02;
+          const driftAmount = this.isMobile ? 0.04 : 0.03;
           particle.vx += (Math.random() - 0.5) * driftAmount;
           particle.vy += (Math.random() - 0.5) * driftAmount;
           
