@@ -148,6 +148,10 @@
     // ==================== 3D TILT EFFECT ====================
     function initTiltEffect() {
       const cards = document.querySelectorAll('.portfolio-card');
+      const isMobile = window.innerWidth <= 768;
+      
+      // Skip tilt effect on mobile
+      if (isMobile) return;
       
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -158,14 +162,17 @@
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           
-          const rotateX = (y - centerY) / 10;
-          const rotateY = (centerX - x) / 10;
+          // Less tilt (divided by 20 instead of 10)
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
           
           card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+          card.style.transition = 'transform 0.1s ease-out';
         });
         
         card.addEventListener('mouseleave', () => {
           card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+          card.style.transition = 'transform 0.3s ease-out';
         });
       });
     }
@@ -274,8 +281,8 @@
           particle.vx *= 0.95;
           particle.vy *= 0.95;
           
-          // Add scroll bounce effect
-          if (scrollDelta !== 0) {
+          // Add scroll bounce effect (desktop only)
+          if (scrollDelta !== 0 && !this.isMobile) {
             particle.vy += (Math.random() - 0.5) * bounceForce;
             particle.vx += (Math.random() - 0.5) * bounceForce * 0.5;
           }
