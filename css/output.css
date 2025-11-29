@@ -568,51 +568,16 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-/* ==================== ANIMATED BACKGROUND ==================== */
+/* ==================== FLUID SIMULATOR BACKGROUND ==================== */
 
-.bg-animation {
+.fluid-background {
   position: fixed;
   top: 0px;
   left: 0px;
   z-index: -10;
   height: 100%;
   width: 100%;
-  overflow: hidden;
-}
-
-.floating-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: 0.4;
-  animation: float 20s ease-in-out infinite;
-}
-
-.orb-1 {
-  height: 600px;
-  width: 600px;
-  background: var(--accent-blue);
-  top: -200px;
-  left: -200px;
-  animation-delay: 0s;
-}
-
-.orb-2 {
-  height: 500px;
-  width: 500px;
-  background: var(--accent-purple);
-  top: 50%;
-  right: -150px;
-  animation-delay: -5s;
-}
-
-.orb-3 {
-  height: 400px;
-  width: 400px;
-  background: var(--accent-green);
-  bottom: -100px;
-  left: 30%;
-  animation-delay: -10s;
+  background: var(--bg-dark);
 }
 
 /* ==================== HERO SECTION ==================== */
@@ -1031,6 +996,10 @@ body {
   visibility: visible;
 }
 
+.collapse {
+  visibility: collapse;
+}
+
 .fixed {
   position: fixed;
 }
@@ -1083,6 +1052,10 @@ body {
   margin-bottom: 4rem;
 }
 
+.block {
+  display: block;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -1097,6 +1070,10 @@ body {
 
 .grid {
   display: grid;
+}
+
+.contents {
+  display: contents;
 }
 
 .hidden {
@@ -1125,18 +1102,6 @@ body {
 
 .h-72 {
   height: 18rem;
-}
-
-.h-\[400px\] {
-  height: 400px;
-}
-
-.h-\[500px\] {
-  height: 500px;
-}
-
-.h-\[600px\] {
-  height: 600px;
 }
 
 .h-full {
@@ -1171,18 +1136,6 @@ body {
   width: 18rem;
 }
 
-.w-\[400px\] {
-  width: 400px;
-}
-
-.w-\[500px\] {
-  width: 500px;
-}
-
-.w-\[600px\] {
-  width: 600px;
-}
-
 .w-full {
   width: 100%;
 }
@@ -1199,8 +1152,16 @@ body {
   max-width: 36rem;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .grow {
   flex-grow: 1;
+}
+
+.border-collapse {
+  border-collapse: collapse;
 }
 
 .-translate-y-1 {
@@ -1210,6 +1171,10 @@ body {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.resize {
+  resize: both;
 }
 
 .grid-cols-1 {
@@ -1382,8 +1347,16 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.underline {
+  text-decoration-line: underline;
+}
+
 .no-underline {
   text-decoration-line: none;
+}
+
+.outline {
+  outline-style: solid;
 }
 
 .ring {

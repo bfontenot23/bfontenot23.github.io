@@ -34,40 +34,10 @@
 /* ==================== CUSTOM CURSOR ==================== */
 @layer components {
 
-  /* ==================== ANIMATED BACKGROUND ==================== */
-  .bg-animation {
-    @apply fixed top-0 left-0 w-full h-full -z-10 overflow-hidden;
-  }
-
-  .floating-orb {
-    @apply absolute rounded-full;
-    filter: blur(80px);
-    opacity: 0.4;
-    animation: float 20s ease-in-out infinite;
-  }
-
-  .orb-1 {
-    @apply w-[600px] h-[600px];
-    background: var(--accent-blue);
-    top: -200px;
-    left: -200px;
-    animation-delay: 0s;
-  }
-
-  .orb-2 {
-    @apply w-[500px] h-[500px];
-    background: var(--accent-purple);
-    top: 50%;
-    right: -150px;
-    animation-delay: -5s;
-  }
-
-  .orb-3 {
-    @apply w-[400px] h-[400px];
-    background: var(--accent-green);
-    bottom: -100px;
-    left: 30%;
-    animation-delay: -10s;
+  /* ==================== FLUID SIMULATOR BACKGROUND ==================== */
+  .fluid-background {
+    @apply fixed top-0 left-0 w-full h-full -z-10;
+    background: var(--bg-dark);
   }
 
   /* ==================== HERO SECTION ==================== */

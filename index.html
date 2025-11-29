@@ -15,12 +15,8 @@
   <!-- Mouse Follower Trail -->
   <div class="mouse-follower"></div>
 
-  <!-- Animated Background -->
-  <div class="bg-animation">
-    <div class="floating-orb orb-1"></div>
-    <div class="floating-orb orb-2"></div>
-    <div class="floating-orb orb-3"></div>
-  </div>
+  <!-- Fluid Simulator Background -->
+  <canvas id="fluid-canvas" class="fluid-background"></canvas>
 
   <!-- Navigation -->
   <nav class="main-nav">
@@ -169,41 +165,138 @@
       });
     }
 
-    // ==================== PARALLAX EFFECTS ON ORBS ====================
-    const orbs = document.querySelectorAll('.floating-orb');
-    
-    // Track mouse position and scroll for combined transform
-    let orbMouseX = 0, orbMouseY = 0;
-    let orbScrollY = 0;
-    let orbAnimationFrame = null;
-    
-    function updateOrbTransforms() {
-      orbs.forEach((orb, index) => {
-        const mouseSpeed = (index + 1) * 20;
-        const scrollSpeed = (index + 1) * 0.1;
-        const mouseOffsetX = orbMouseX * mouseSpeed;
-        const mouseOffsetY = orbMouseY * mouseSpeed;
-        const scrollOffset = orbScrollY * scrollSpeed;
-        orb.style.transform = `translate(${mouseOffsetX}px, ${mouseOffsetY + scrollOffset}px)`;
-      });
-      orbAnimationFrame = null;
-    }
-    
-    function requestOrbUpdate() {
-      if (!orbAnimationFrame) {
-        orbAnimationFrame = requestAnimationFrame(updateOrbTransforms);
+    // ==================== FLUID SIMULATOR ====================
+    class FluidSimulator {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.particleCount = 80;
+        this.mouse = { x: 0, y: 0, radius: 150 };
+        
+        this.resize();
+        this.init();
+        window.addEventListener('resize', () => this.resize());
+      }
+      
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+      
+      init() {
+        this.particles = [];
+        for (let i = 0; i < this.particleCount; i++) {
+          this.particles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            radius: Math.random() * 3 + 1,
+            color: i % 3 === 0 ? '#3b82f6' : i % 3 === 1 ? '#a855f7' : '#4ecca3'
+          });
+        }
+      }
+      
+      update() {
+        this.particles.forEach(particle => {
+          // Mouse interaction
+          const dx = this.mouse.x - particle.x;
+          const dy = this.mouse.y - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < this.mouse.radius) {
+            const force = (this.mouse.radius - distance) / this.mouse.radius;
+            const angle = Math.atan2(dy, dx);
+            particle.vx -= Math.cos(angle) * force * 0.5;
+            particle.vy -= Math.sin(angle) * force * 0.5;
+          }
+          
+          // Apply velocity
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          
+          // Friction
+          particle.vx *= 0.99;
+          particle.vy *= 0.99;
+          
+          // Boundaries with wrap-around
+          if (particle.x < 0) particle.x = this.canvas.width;
+          if (particle.x > this.canvas.width) particle.x = 0;
+          if (particle.y < 0) particle.y = this.canvas.height;
+          if (particle.y > this.canvas.height) particle.y = 0;
+          
+          // Gentle drift
+          particle.vx += (Math.random() - 0.5) * 0.05;
+          particle.vy += (Math.random() - 0.5) * 0.05;
+        });
+      }
+      
+      draw() {
+        // Clear with fade effect
+        this.ctx.fillStyle = 'rgba(15, 15, 26, 0.1)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw connections
+        this.ctx.strokeStyle = 'rgba(168, 85, 247, 0.15)';
+        this.ctx.lineWidth = 1;
+        
+        for (let i = 0; i < this.particles.length; i++) {
+          for (let j = i + 1; j < this.particles.length; j++) {
+            const dx = this.particles[i].x - this.particles[j].x;
+            const dy = this.particles[i].y - this.particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+              const opacity = (1 - distance / 100) * 0.3;
+              this.ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+              this.ctx.beginPath();
+              this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+              this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+              this.ctx.stroke();
+            }
+          }
+        }
+        
+        // Draw particles with glow
+        this.particles.forEach(particle => {
+          this.ctx.shadowBlur = 20;
+          this.ctx.shadowColor = particle.color;
+          this.ctx.fillStyle = particle.color;
+          this.ctx.globalAlpha = 0.6;
+          
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+          this.ctx.fill();
+          
+          this.ctx.shadowBlur = 0;
+          this.ctx.globalAlpha = 1;
+        });
+      }
+      
+      animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.animate());
       }
     }
     
-    window.addEventListener('scroll', () => {
-      orbScrollY = window.pageYOffset;
-      requestOrbUpdate();
-    }, { passive: true });
-
+    const fluidCanvas = document.getElementById('fluid-canvas');
+    const fluidSim = new FluidSimulator(fluidCanvas);
+    fluidSim.animate();
+    
+    // Track mouse for fluid interaction
     document.addEventListener('mousemove', (e) => {
-      orbMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      orbMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-      requestOrbUpdate();
+      fluidSim.mouse.x = e.clientX;
+      fluidSim.mouse.y = e.clientY;
+    }, { passive: true });
+    
+    // Touch support
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        fluidSim.mouse.x = e.touches[0].clientX;
+        fluidSim.mouse.y = e.touches[0].clientY;
+      }
     }, { passive: true });
 
     // ==================== LOAD PORTFOLIO ITEMS FROM POSTS FOLDER ====================
