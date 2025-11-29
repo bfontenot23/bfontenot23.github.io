@@ -36,9 +36,8 @@
   <!-- Hero Section -->
   <section class="hero" id="home">
     <div class="hero-content">
-      <h1>Creative Developer</h1>
-      <p class="subtitle">Building digital experiences that inspire</p>
-      <span class="tagline">Let's create something amazing</span>
+      <h1>Beau Fontenot</h1>
+      <p class="subtitle">BS Computer Science with concentration in Software Engineering</p>
     </div>
     <div class="scroll-indicator">
       <span>Scroll</span>
@@ -92,7 +91,7 @@
     <div class="contact-content">
       <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
       <div class="contact-links">
-        <a href="mailto:your.email@example.com" class="contact-link" data-hover>
+        <a href="mailto:beau_fontenot@icloud.com" class="contact-link" data-hover>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
@@ -265,12 +264,7 @@
         // Initialize tilt effect after cards are loaded
         initTiltEffect();
         
-        // Re-add hover listeners for new elements
-        const newHoverElements = document.querySelectorAll('.portfolio-card a');
-        newHoverElements.forEach(el => {
-          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
+
         
       } catch (error) {
         console.error('Error loading portfolio:', error);
