@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "Project One",
+    "description": "A brief description of your first project. Explain what technologies you used and what problems it solves.",
+    "tags": ["JavaScript", "HTML", "CSS"],
+    "image": "https://via.placeholder.com/400x300/1a1a2e/4ecca3?text=Project+1",
+    "link": "#",
+    "github": "#"
+  },
+  {
+    "id": 2,
+    "title": "Project Two",
+    "description": "A brief description of your second project. Highlight your role and the impact of the project.",
+    "tags": ["Python", "Machine Learning"],
+    "image": "https://via.placeholder.com/400x300/1a1a2e/a855f7?text=Project+2",
+    "link": "#",
+    "github": "#"
+  },
+  {
+    "id": 3,
+    "title": "Project Three",
+    "description": "A brief description of your third project. Share what you learned and any challenges you overcame.",
+    "tags": ["React", "Node.js", "MongoDB"],
+    "image": "https://via.placeholder.com/400x300/1a1a2e/3b82f6?text=Project+3",
+    "link": "#",
+    "github": "#"
+  }
+]
