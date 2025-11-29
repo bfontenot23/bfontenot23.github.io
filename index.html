@@ -149,11 +149,17 @@
       cursorDot.style.left = dotX + 'px';
       cursorDot.style.top = dotY + 'px';
 
-      // Mouse follower - very smooth
+      // Mouse follower - dynamic speed based on distance
       const fdx = mouseX - followerX;
       const fdy = mouseY - followerY;
-      followerX += fdx * 0.05;
-      followerY += fdy * 0.05;
+      const distance = Math.sqrt(fdx * fdx + fdy * fdy);
+      
+      // Speed increases with distance (exponential easing)
+      // Close = slow (0.02), Far = fast (up to 0.3)
+      const speed = Math.min(0.02 + (distance * 0.001), 0.3);
+      
+      followerX += fdx * speed;
+      followerY += fdy * speed;
       mouseFollower.style.left = followerX + 'px';
       mouseFollower.style.top = followerY + 'px';
 

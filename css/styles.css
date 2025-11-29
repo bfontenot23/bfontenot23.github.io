@@ -28,30 +28,21 @@
 
   body {
     @apply font-outfit bg-dark text-white min-h-screen overflow-x-hidden;
-    cursor: none;
   }
 }
 
 /* ==================== CUSTOM CURSOR ==================== */
 @layer components {
   .cursor {
-    @apply fixed w-5 h-5 rounded-full pointer-events-none z-[9999];
-    border: 2px solid var(--accent-purple);
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, border-color 0.3s;
-    mix-blend-mode: difference;
+    @apply hidden;
   }
 
   .cursor-dot {
-    @apply fixed w-2 h-2 rounded-full pointer-events-none z-[9999];
-    background: var(--accent-green);
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s;
+    @apply hidden;
   }
 
   .cursor.hover {
-    @apply w-12 h-12;
-    border-color: var(--accent-green);
+    @apply hidden;
   }
 
   /* ==================== ANIMATED BACKGROUND ==================== */
@@ -394,11 +385,5 @@
     @apply grid-cols-1;
   }
 
-  body {
-    cursor: auto;
-  }
 
-  .cursor, .cursor-dot {
-    @apply hidden;
-  }
 }
