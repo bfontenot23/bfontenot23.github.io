@@ -87,17 +87,23 @@
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.particles = [];
-        this.particleCount = 80;
+        this.isMobile = window.innerWidth <= 768;
+        this.particleCount = this.isMobile ? 20 : 80;
         this.mouse = { x: 0, y: 0, radius: 150 };
         this.lastScrollY = 0;
-        this.maxParticles = 200;
-        this.isMobile = window.innerWidth <= 768;
+        this.maxParticles = this.isMobile ? 50 : 200;
         
         this.resize();
         this.init();
         window.addEventListener('resize', () => {
           this.resize();
+          const wasMobile = this.isMobile;
           this.isMobile = window.innerWidth <= 768;
+          if (wasMobile !== this.isMobile) {
+            this.particleCount = this.isMobile ? 20 : 80;
+            this.maxParticles = this.isMobile ? 50 : 200;
+            this.init();
+          }
         });
       }
       
@@ -108,8 +114,12 @@
       
       init() {
         this.particles = [];
+        const scrollY = window.pageYOffset;
         for (let i = 0; i < this.particleCount; i++) {
-          this.createParticle(Math.random() * this.canvas.width, Math.random() * this.canvas.height);
+          this.createParticle(
+            Math.random() * this.canvas.width, 
+            Math.random() * this.canvas.height + scrollY
+          );
         }
       }
       
