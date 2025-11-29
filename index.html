@@ -710,28 +710,42 @@
       });
     }
 
-    // ==================== PARALLAX SCROLL EFFECT ====================
+    // ==================== PARALLAX EFFECTS ON ORBS ====================
     const orbs = document.querySelectorAll('.floating-orb');
     
+    // Track mouse position and scroll for combined transform
+    let orbMouseX = 0, orbMouseY = 0;
+    let orbScrollY = 0;
+    let orbAnimationFrame = null;
+    
+    function updateOrbTransforms() {
+      orbs.forEach((orb, index) => {
+        const mouseSpeed = (index + 1) * 20;
+        const scrollSpeed = (index + 1) * 0.1;
+        const mouseOffsetX = orbMouseX * mouseSpeed;
+        const mouseOffsetY = orbMouseY * mouseSpeed;
+        const scrollOffset = orbScrollY * scrollSpeed;
+        orb.style.transform = `translate(${mouseOffsetX}px, ${mouseOffsetY + scrollOffset}px)`;
+      });
+      orbAnimationFrame = null;
+    }
+    
+    function requestOrbUpdate() {
+      if (!orbAnimationFrame) {
+        orbAnimationFrame = requestAnimationFrame(updateOrbTransforms);
+      }
+    }
+    
     window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      
-      orbs.forEach((orb, index) => {
-        const speed = (index + 1) * 0.1;
-        orb.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    });
+      orbScrollY = window.pageYOffset;
+      requestOrbUpdate();
+    }, { passive: true });
 
-    // ==================== MOUSE PARALLAX ON ORBS ====================
     document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      
-      orbs.forEach((orb, index) => {
-        const speed = (index + 1) * 20;
-        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-      });
-    });
+      orbMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      orbMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      requestOrbUpdate();
+    }, { passive: true });
 
     // ==================== LOAD PORTFOLIO ITEMS ====================
     async function loadPortfolio() {
