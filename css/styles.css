@@ -33,17 +33,6 @@
 
 /* ==================== CUSTOM CURSOR ==================== */
 @layer components {
-  .cursor {
-    @apply hidden;
-  }
-
-  .cursor-dot {
-    @apply hidden;
-  }
-
-  .cursor.hover {
-    @apply hidden;
-  }
 
   /* ==================== ANIMATED BACKGROUND ==================== */
   .bg-animation {
