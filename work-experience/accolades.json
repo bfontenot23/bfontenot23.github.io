@@ -1,0 +1,12 @@
+{
+  "position": "Full Stack Intern",
+  "company": "Accolades",
+  "startDate": "June 2022",
+  "endDate": "August 2022",
+  "description": "Full stack development of a web project for Hope Mindfulness.",
+  "achievements": [
+    "Developed using Django framework to create a searchable Bible embedded in a website using MySQL, Python, HTML, CSS, JavaScript, and BASH.",
+    "Rapidly interpreted and adapted to entirely new systems within a pre-existing codebase during a project-based internship; modified existing code to align with project scope and objectives."
+  ],
+  "technologies": ["MySQL", "Python", "HTML", "CSS", "JavaScript", "BASH", "Django"]
+}

@@ -1,0 +1,13 @@
+{
+  "position": "Senior Technical Support Agent",
+  "company": "Louisiana State University",
+  "startDate": "February 2024",
+  "endDate": "Present",
+  "description": "Tier 1 Support line for LSU Campus IT needs, including account management, network troubleshooting, computer troubleshooting, and troubleshooting of other LSU managed software and web services including Moodle, Zoom, and Workday.",
+  "achievements": [
+    "Training new hires on ITS policy, creation and maintenance of support tickets through TeamDynamix, and detail on LSU’s account systems and common troubleshooting needs.",
+    "Intercommunication between other LSU departments to ensure that relevant tickets are escalated to and handled by the proper team.",
+    "Performing routine ticket checks for Technical Support Agents to ensure accuracy and proper troubleshooting."
+  ],
+  "technologies": ["TeamDynamix", "Okta", "AWS Workspaces", "Moodle", "Zoom", "Workday"]
+}

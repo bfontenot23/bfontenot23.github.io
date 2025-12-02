@@ -1,0 +1,16 @@
+{
+  "position": "Information Technology Apprentice",
+  "company": "Rooted Consulting",
+  "startDate": "Summer 2023",
+  "endDate": "Summer 2025",
+  "description": "Onsite tech support for various companies across Acadiana and Baton Rouge.",
+  "achievements": [
+    "Consulted with multiple companies on reported information technology concerns.",
+    "Installed WiFi access points (UniFi, Netgear), configured network interfaces (Netgear), and terminated ethernet cables for full Wifi setup.",
+    "Setup and maintained network file share using Synology servers.",
+    "Setup and deployed iPads, MacBooks, iMacs, and Apple TVs in Apple Business Manager and mobile device management solutions including JAMF and Mosyle.",
+    "Managed Microsoft Azure and Google Workplace accounts for clients.",
+    "Creation and management of support tickets through Zendesk, including calls for remote support."
+  ],
+  "technologies": ["Zendesk", "UniFi", "Netgear", "Synology", "Apple Business Manager", "JAMF", "Mosyle", "Microsoft Azure", "Google Workplace"]
+}

@@ -1,0 +1,13 @@
+{
+  "position": "Intern",
+  "company": "St. Landry Chamber of Commerce",
+  "startDate": "June 2021",
+  "endDate": "August 2021",
+  "description": "Coordination of the chamber's Soirée Royale event and handled general desk operations when needed.",
+  "achievements": [
+    "Coordinated logistics for annual Soirée Royale event with roughly 20 restaurants across St. Landry Parish.",
+    "Assisted with member outreach and community engagement initiatives.",
+    "Managed front desk operations and provided administrative support to chamber staff and members."
+  ],
+  "technologies": ["C++", "Java"]
+}

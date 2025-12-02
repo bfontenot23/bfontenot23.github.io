@@ -1,0 +1,12 @@
+{
+  "position": "Computer Science Student Worker",
+  "company": "LSMSA Work Service Program",
+  "startDate": "August 2021",
+  "endDate": "May 2023",
+  "description": "Worked closely with a computer science professor to assist in the creation and grading of course work.",
+  "achievements": [
+    "Provided technical support and tutoring to over 50 students in C++ and Java programming courses.",
+    "Contributed to curriculum development by creating practice problems and coding exercises."
+  ],
+  "technologies": ["C++", "Java"]
+}
