@@ -1,11 +1,11 @@
 {
-  "id": 3,
   "title": "Flourish",
   "description": "Flutter-based mobile application that uses dual AI models to analyze plant health and growth stages.",
-  "longDescription": "Flourish is a Flutter-based mobile application that uses dual AI models to analyze plant health and growth stages.\nUsers can: Take photos of their plants directly through the app Get instant AI analysis using two specialized Roboflow models: Model 1: Detects growth stages (germination, growing, flowering) Model 2: Identifies plant diseases (Early Blight, Late Blight, Leaf Spot, Mosaic Virus, Rust) Receive personalized care recommendations based on the detected growth stage and health status Track their plants' progress over time with daily photos and health scores View comprehensive health metrics including growth scores, health scores, and overall plant wellness ratings Get actionable advice for treating diseases and optimizing plant care at each growth stage.",
+  "longDescription": "Flourish is a Flutter-based mobile application that uses dual AI models to analyze plant health and growth stages.\n\nUsers can: Take photos of their plants directly through the app Get instant AI analysis using two specialized Roboflow models: Model 1: Detects growth stages (germination, growing, flowering) Model 2: Identifies plant diseases (Early Blight, Late Blight, Leaf Spot, Mosaic Virus, Rust) Receive personalized care recommendations based on the detected growth stage and health status Track their plants' progress over time with daily photos and health scores View comprehensive health metrics including growth scores, health scores, and overall plant wellness ratings Get actionable advice for treating diseases and optimizing plant care at each growth stage.",
   "tags": ["Flutter", "Dart", "Firebase", "Roboflow"],
   "image": "resources/flourish_logo.png",
   "link": "https://devpost.com/software/flourish-6fecaj#updates",
+  "linkText": "DevPost",
   "github": "https://github.com/ahmxdhijazi/WeCooked-SASE2025",
   "date": "2025-11",
   "features": [
